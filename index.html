@@ -7,451 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --navy: #0a1628;
-    --navy-mid: #112240;
-    --navy-light: #1d3461;
-    --accent: #2979ff;
-    --accent-light: #5c9dff;
-    --accent-glow: rgba(41,121,255,0.18);
-    --gold: #f0b429;
-    --white: #ffffff;
-    --off-white: #f4f7fc;
-    --text-muted: #8a9bb8;
-    --text-light: #c8d6ef;
-    --border: rgba(255,255,255,0.08);
-    --card-bg: rgba(255,255,255,0.04);
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Be Vietnam Pro', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    overflow-x: hidden;
-    line-height: 1.65;
-  }
-
-  /* ─── NAVBAR ─────────────────────────────────── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 6%;
-    background: rgba(10,22,40,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    transition: background 0.3s;
-  }
-  .nav-logo {
-    font-weight: 800; font-size: 1.15rem;
-    background: linear-gradient(90deg, #fff 40%, var(--accent-light));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    letter-spacing: -0.3px;
-  }
-  .nav-links { display: flex; gap: 28px; }
-  .nav-links a {
-    color: var(--text-muted); text-decoration: none; font-size: 0.88rem;
-    font-weight: 500; letter-spacing: 0.3px;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--white); }
-
-  /* ─── HERO ───────────────────────────────────── */
-  #hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 120px 6% 80px;
-    position: relative; overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background:
-      radial-gradient(ellipse 70% 60% at 70% 50%, rgba(29,52,97,0.55) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(41,121,255,0.12) 0%, transparent 60%);
-  }
-  .hero-grid {
-    position: absolute; inset: 0; z-index: 0;
-    background-image:
-      linear-gradient(rgba(41,121,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(41,121,255,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
-  }
-  .hero-content { position: relative; z-index: 1; max-width: 620px; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(41,121,255,0.12); border: 1px solid rgba(41,121,255,0.3);
-    border-radius: 100px; padding: 6px 16px;
-    font-size: 0.8rem; font-weight: 600; color: var(--accent-light);
-    letter-spacing: 1px; text-transform: uppercase;
-    margin-bottom: 28px;
-    animation: fadeUp 0.6s ease both;
-  }
-  .badge-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent-light);
-    box-shadow: 0 0 6px var(--accent-light);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-
-  .hero-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 6vw, 4.5rem);
-    font-weight: 800; line-height: 1.1;
-    letter-spacing: -1px;
-    margin-bottom: 10px;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
-  .hero-name .accent { color: var(--accent-light); }
-
-  .hero-title {
-    font-size: 1.1rem; font-weight: 500;
-    color: var(--text-muted);
-    margin-bottom: 28px;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
-  .hero-title strong { color: var(--white); }
-
-  .hero-desc {
-    font-size: 1rem; color: var(--text-light);
-    line-height: 1.75; max-width: 500px;
-    margin-bottom: 40px;
-    animation: fadeUp 0.6s 0.3s ease both;
-  }
-
-  .hero-cta {
-    display: flex; gap: 14px; flex-wrap: wrap;
-    animation: fadeUp 0.6s 0.4s ease both;
-  }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: #fff;
-    padding: 14px 28px; border-radius: 10px;
-    font-weight: 700; font-size: 0.95rem;
-    text-decoration: none; transition: all 0.2s;
-    box-shadow: 0 4px 20px rgba(41,121,255,0.35);
-  }
-  .btn-primary:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(41,121,255,0.45); }
-  .btn-outline {
-    display: inline-flex; align-items: center; gap: 8px;
-    border: 1.5px solid rgba(255,255,255,0.2); color: var(--white);
-    padding: 13px 26px; border-radius: 10px;
-    font-weight: 600; font-size: 0.95rem;
-    text-decoration: none; transition: all 0.2s;
-  }
-  .btn-outline:hover { border-color: var(--accent-light); color: var(--accent-light); }
-
-  .hero-avatar {
-    position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
-    width: 340px; height: 340px;
-    z-index: 1;
-    animation: fadeUp 0.8s 0.2s ease both;
-  }
-  .avatar-ring {
-    position: absolute; inset: -20px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(41,121,255,0.2);
-    animation: spin 20s linear infinite;
-  }
-  .avatar-ring::before {
-    content: ''; position: absolute; top: 10%; left: -3px;
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent-light);
-    box-shadow: 0 0 8px var(--accent-light);
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .avatar-inner {
-    width: 100%; height: 100%; border-radius: 50%;
-    background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
-    border: 2px solid rgba(41,121,255,0.3);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 5.5rem; font-weight: 800;
-    color: var(--accent-light);
-    letter-spacing: -3px;
-    position: relative; overflow: hidden;
-  }
-  .avatar-inner::after {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at 30% 30%, rgba(41,121,255,0.15) 0%, transparent 60%);
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── STATS ──────────────────────────────────── */
-  #stats {
-    padding: 0 6% 80px;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 16px;
-  }
-  .stat-card {
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 14px; padding: 28px 24px;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .stat-card:hover { border-color: rgba(41,121,255,0.3); transform: translateY(-3px); }
-  .stat-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.4rem; font-weight: 800;
-    color: var(--accent-light);
-    line-height: 1;
-  }
-  .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 6px; }
-
-  /* ─── SECTIONS ───────────────────────────────── */
-  section { padding: 80px 6%; }
-  .section-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 2px; color: var(--accent-light);
-    margin-bottom: 14px;
-  }
-  .section-tag::before {
-    content: ''; display: block; width: 24px; height: 2px;
-    background: var(--accent-light);
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800; line-height: 1.15;
-    letter-spacing: -0.5px;
-    margin-bottom: 16px;
-  }
-  .section-sub {
-    font-size: 1rem; color: var(--text-muted);
-    max-width: 560px; line-height: 1.7;
-    margin-bottom: 52px;
-  }
-  .divider {
-    height: 1px; background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
-    margin: 0 6%;
-  }
-
-  /* ─── SAPO FEATURES ──────────────────────────── */
-  #sapo { background: linear-gradient(180deg, transparent 0%, rgba(17,34,64,0.4) 50%, transparent 100%); }
-
-  .features-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-  }
-  .feature-card {
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 16px; padding: 32px 28px;
-    transition: all 0.25s; position: relative; overflow: hidden;
-  }
-  .feature-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent-light));
-    opacity: 0; transition: opacity 0.25s;
-  }
-  .feature-card:hover { border-color: rgba(41,121,255,0.35); transform: translateY(-4px); }
-  .feature-card:hover::before { opacity: 1; }
-  .feature-icon {
-    width: 52px; height: 52px; border-radius: 14px;
-    background: rgba(41,121,255,0.12); border: 1px solid rgba(41,121,255,0.2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; margin-bottom: 20px;
-  }
-  .feature-title { font-weight: 700; font-size: 1rem; margin-bottom: 10px; }
-  .feature-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
-
-  /* Sapo hero row */
-  .sapo-intro {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-    align-items: center; margin-bottom: 60px;
-  }
-  .sapo-logo-box {
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 20px; padding: 48px;
-    display: flex; flex-direction: column; align-items: center;
-    gap: 20px; text-align: center;
-  }
-  .sapo-brand {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem; font-weight: 800;
-    background: linear-gradient(135deg, #fff 20%, var(--accent-light));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    letter-spacing: -2px;
-  }
-  .sapo-tagline { font-size: 0.9rem; color: var(--text-muted); }
-  .sapo-stats-mini {
-    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
-  }
-  .sapo-stat { text-align: center; }
-  .sapo-stat-num { font-size: 1.6rem; font-weight: 800; color: var(--gold); }
-  .sapo-stat-lbl { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
-
-  .sapo-text .tag { margin-bottom: 12px; }
-
-  /* Pricing cards */
-  .pricing-row {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px; margin-top: 48px;
-  }
-  .price-card {
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 14px; padding: 28px 24px;
-    transition: all 0.2s;
-  }
-  .price-card.highlight {
-    border-color: rgba(41,121,255,0.5);
-    background: rgba(41,121,255,0.08);
-  }
-  .price-card:hover { transform: translateY(-3px); border-color: rgba(41,121,255,0.3); }
-  .price-name { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700; margin-bottom: 10px; }
-  .price-amount { font-family: 'Playfair Display', serif; font-size: 1.9rem; font-weight: 800; color: var(--white); }
-  .price-amount span { font-family: 'Be Vietnam Pro', sans-serif; font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
-  .price-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 10px; line-height: 1.55; }
-
-  /* ─── SOCIAL MEDIA ───────────────────────────── */
-  #social { background: linear-gradient(180deg, transparent 0%, rgba(17,34,64,0.3) 100%); }
-
-  .channels-row {
-    display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 52px;
-  }
-  .channel-card {
-    flex: 1; min-width: 200px;
-    border: 1px solid var(--border); border-radius: 16px;
-    padding: 28px 24px; text-decoration: none; color: var(--white);
-    transition: all 0.25s; display: flex; align-items: center; gap: 16px;
-  }
-  .channel-card:hover { transform: translateY(-3px); }
-  .channel-fb { background: rgba(24,119,242,0.08); }
-  .channel-fb:hover { border-color: rgba(24,119,242,0.5); background: rgba(24,119,242,0.15); }
-  .channel-tt { background: rgba(0,0,0,0.2); }
-  .channel-tt:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.06); }
-  .channel-yt { background: rgba(255,0,0,0.08); }
-  .channel-yt:hover { border-color: rgba(255,0,0,0.4); background: rgba(255,0,0,0.12); }
-
-  .channel-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .channel-fb .channel-icon { background: #1877F2; }
-  .channel-tt .channel-icon { background: #000; border: 1px solid rgba(255,255,255,0.15); }
-  .channel-yt .channel-icon { background: #ff0000; }
-  .channel-icon svg { width: 24px; height: 24px; fill: white; }
-
-  .channel-name { font-weight: 700; font-size: 1rem; }
-  .channel-handle { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
-
-  /* Videos */
-  .videos-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
-  .videos-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .video-card {
-    border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-    transition: all 0.25s; cursor: pointer;
-  }
-  .video-card:hover { transform: translateY(-3px); border-color: rgba(41,121,255,0.3); }
-  .video-thumb {
-    aspect-ratio: 16/9;
-    background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
-    display: flex; align-items: center; justify-content: center; position: relative;
-    overflow: hidden;
-  }
-  .video-thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-  .play-btn {
-    width: 54px; height: 54px; border-radius: 50%;
-    background: rgba(255,255,255,0.9);
-    display: flex; align-items: center; justify-content: center;
-    position: relative; z-index: 1;
-    transition: transform 0.2s;
-  }
-  .video-card:hover .play-btn { transform: scale(1.1); }
-  .play-btn svg { width: 22px; height: 22px; fill: var(--navy); margin-left: 3px; }
-  .video-platform-badge {
-    position: absolute; top: 10px; left: 10px; z-index: 1;
-    background: rgba(0,0,0,0.7); border-radius: 6px; padding: 3px 8px;
-    font-size: 0.72rem; font-weight: 700; color: #fff;
-  }
-  .video-info { padding: 16px; }
-  .video-info-title { font-size: 0.9rem; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
-  .video-meta { font-size: 0.78rem; color: var(--text-muted); }
-
-  /* ─── CONTACT ────────────────────────────────── */
-  #contact { padding-bottom: 100px; }
-  .contact-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 48px; align-items: start;
-  }
-  .contact-info { display: flex; flex-direction: column; gap: 20px; }
-  .contact-item {
-    display: flex; align-items: flex-start; gap: 16px;
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 14px; padding: 20px 22px;
-    transition: border-color 0.2s;
-  }
-  .contact-item:hover { border-color: rgba(41,121,255,0.3); }
-  .contact-ico {
-    width: 42px; height: 42px; flex-shrink: 0;
-    border-radius: 10px; background: rgba(41,121,255,0.12); border: 1px solid rgba(41,121,255,0.2);
-    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
-  }
-  .contact-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; }
-  .contact-value { font-size: 0.95rem; font-weight: 600; margin-top: 2px; }
-  .contact-value a { color: var(--white); text-decoration: none; }
-  .contact-value a:hover { color: var(--accent-light); }
-
-  .contact-form {
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 20px; padding: 36px 32px;
-  }
-  .form-title { font-weight: 800; font-size: 1.25rem; margin-bottom: 6px; }
-  .form-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 28px; }
-  .form-group { margin-bottom: 18px; }
-  .form-group label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 7px; letter-spacing: 0.3px; }
-  .form-group input, .form-group textarea {
-    width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-    border-radius: 10px; padding: 12px 16px; color: var(--white);
-    font-family: 'Be Vietnam Pro', sans-serif; font-size: 0.92rem;
-    transition: border-color 0.2s;
-    outline: none;
-  }
-  .form-group input:focus, .form-group textarea:focus { border-color: rgba(41,121,255,0.5); background: rgba(41,121,255,0.05); }
-  .form-group textarea { resize: vertical; min-height: 110px; }
-  .form-btn {
-    width: 100%; background: var(--accent); color: #fff;
-    border: none; border-radius: 10px; padding: 14px;
-    font-family: 'Be Vietnam Pro', sans-serif; font-weight: 700; font-size: 0.95rem;
-    cursor: pointer; transition: all 0.2s;
-    box-shadow: 0 4px 16px rgba(41,121,255,0.3);
-  }
-  .form-btn:hover { background: var(--accent-light); transform: translateY(-1px); }
-
-  /* ─── FOOTER ─────────────────────────────────── */
-  footer {
-    padding: 32px 6%;
-    border-top: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
-    gap: 16px;
-  }
-  .footer-brand { font-weight: 700; font-size: 0.95rem; }
-  .footer-copy { font-size: 0.82rem; color: var(--text-muted); }
-  .footer-sapo { font-size: 0.82rem; color: var(--text-muted); }
-  .footer-sapo a { color: var(--accent-light); text-decoration: none; }
-
-  /* ─── RESPONSIVE ─────────────────────────────── */
-  @media (max-width: 900px) {
-    .hero-avatar { display: none; }
-    .sapo-intro { grid-template-columns: 1fr; gap: 32px; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-  }
-  @media (max-width: 600px) {
-    section { padding: 60px 5%; }
-    .hero-cta { flex-direction: column; }
-    .btn-primary, .btn-outline { text-align: center; justify-content: center; }
-  }
-</style>
-</head>
+<link rel="stylesheet" href="style.css"></head>
 <body>
 
 <!-- NAV -->
@@ -460,7 +16,9 @@
   <div class="nav-links">
     <a href="#sapo">Về Sapo</a>
     <a href="#social">Kênh của tôi</a>
+    <a href="#vip">Khách hàng</a>
     <a href="#contact">Liên hệ</a>
+    
   </div>
 </nav>
 
@@ -473,7 +31,7 @@
       <span class="badge-dot"></span>
       Nhân Viên Kinh Doanh · Sapo
     </div>
-    <h1 class="hero-name">Lê Hiếu<br><span class="accent">Nghĩa</span></h1>
+    <h1 class="hero-name">Lê Hiếu <span class="accent">Nghĩa</span></h1>
     <p class="hero-title">Chuyên viên tư vấn giải pháp tại <strong>Sapo – Nền tảng bán hàng đa kênh</strong></p>
     <p class="hero-desc">
       Tôi giúp các chủ cửa hàng, doanh nghiệp vừa và nhỏ tại Việt Nam tối ưu hoá quy trình bán hàng, quản lý kho và vận hành đa kênh thông qua phần mềm Sapo – được hơn 230.000 nhà bán hàng tin dùng.
@@ -491,7 +49,7 @@
   </div>
   <div class="hero-avatar">
     <div class="avatar-ring"></div>
-    <div class="avatar-inner">LHN</div>
+    <div class="avatar-inner"><img src="images/AVT.jpg" alt="Logo"></div>
   </div>
 </section>
 
@@ -521,7 +79,7 @@
 <section id="sapo">
   <div class="sapo-intro">
     <div class="sapo-logo-box">
-      <div class="sapo-brand">sapo</div>
+      <div class="sapo-brand"><img src="images/LOGO_SAPO.png" alt="Logo"></div>
       <div class="sapo-tagline">Nền tảng quản lý & bán hàng đa kênh hàng đầu Việt Nam</div>
       <div class="sapo-stats-mini">
         <div class="sapo-stat">
@@ -631,81 +189,108 @@
   <p class="section-sub">Tôi thường xuyên chia sẻ kiến thức kinh doanh, tips bán hàng đa kênh và cập nhật mới nhất từ Sapo trên các kênh dưới đây.</p>
 
   <div class="channels-row">
-    <a href="https://facebook.com" target="_blank" rel="noopener" class="channel-card channel-fb">
+    <a href="https://www.facebook.com/hieunghialesp/" target="_blank" rel="noopener" class="channel-card channel-fb">
       <div class="channel-icon">
         <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
       </div>
       <div>
         <div class="channel-name">Facebook</div>
-        <div class="channel-handle">Lê Hiếu Nghĩa · Sapo</div>
+        <div class="channel-handle">Hiếu Nghĩa · Sapo</div>
       </div>
     </a>
-    <a href="https://tiktok.com" target="_blank" rel="noopener" class="channel-card channel-tt">
+    <a href="https://www.tiktok.com/@nghialhsapo" target="_blank" rel="noopener" class="channel-card channel-tt">
       <div class="channel-icon">
         <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.13a8.16 8.16 0 004.77 1.52V7.2a4.85 4.85 0 01-1-.51z"/></svg>
       </div>
       <div>
         <div class="channel-name">TikTok</div>
-        <div class="channel-handle">@lehieunghia.sapo</div>
+        <div class="channel-handle">@nghialhsapo</div>
       </div>
     </a>
-    <a href="https://youtube.com" target="_blank" rel="noopener" class="channel-card channel-yt">
+    <a href="https://www.youtube.com/@nghialhsapo" target="_blank" rel="noopener" class="channel-card channel-yt">
       <div class="channel-icon">
         <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
       </div>
       <div>
         <div class="channel-name">YouTube</div>
-        <div class="channel-handle">Hiếu Nghĩa · Bán hàng Sapo</div>
+        <div class="channel-handle">Chuyện Chủ Shop</div>
       </div>
     </a>
   </div>
 
-  <div class="videos-title">📹 Video nổi bật</div>
-  <div class="videos-grid">
-    <div class="video-card">
-      <div class="video-thumb">
-        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Video hướng dẫn Sapo" onerror="this.style.display='none'">
-        <div class="video-platform-badge">YouTube</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        </div>
+<section class="featured-videos">
+  <h2>Video nổi bật</h2>
+    <div id="youtube-videos"></div>
+</section>
+
+<section id="vip">
+  <div class="section-tag" style="text-align: center; margin: 0 auto 10px auto;">Khách hàng</div>
+  <h2 class="section-title" style="text-align: center; margin-bottom: 15px;">Dự án triển khai<br><span style="color:var(--accent-light)">tiêu biểu</span></h2>
+  <p class="" style="text-align: center; margin-bottom: 40px; width: 100%;">Những câu chuyện thành công tiêu biểu từ các chủ shop, doanh nghiệp đã tin tưởng đồng hành cùng tôi.</p>
+
+  <div class="vip-grid">
+    <!-- Khách hàng 1 -->
+    <div class="vip-card">
+      <div class="vip-img-box">
+        <img src="images/berryfruit.png" alt="Cửa hàng mẫu 1">
+        <div class="vip-date-tag">📅 T6/2026</div>
       </div>
-      <div class="video-info">
-        <div class="video-info-title">Hướng dẫn bán hàng đa kênh với Sapo từ A–Z</div>
-        <div class="video-meta">12.4K lượt xem · 3 tuần trước</div>
+      <div class="vip-body">
+        <div class="vip-name">Berry Mart</div>
+        <div class="vip-meta-list">
+          <div class="vip-meta-item">🔹 Ngành nghề: <strong>Siêu Thị Tiện Lợi</strong></div>
+          <div class="vip-meta-item">🚀 Gói triển khai: <strong>Sapo Retail </strong></div>
+        </div>
+        <div class="vip-quote">
+          "Từ lúc Nghĩa tư vấn gói Đa kênh, việc đồng bộ đơn giữa TikTok Shop và cửa hàng nhàn hẳn, không sợ lệch tồn kho nữa."
+        </div>
+        <a href="https://www.facebook.com/TraiCaySachBERRYFRUIT/?locale=vi_VN" target="_blank" rel="noopener" class="vip-btn">Ghé thăm cửa hàng ↗</a>
       </div>
     </div>
-    <div class="video-card">
-      <div class="video-thumb" style="background: linear-gradient(135deg,#000,#1a1a2e);">
-        <div class="video-platform-badge">TikTok</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        </div>
+
+    <!-- Khách hàng 2 -->
+    <div class="vip-card">
+      <div class="vip-img-box">
+        <img src="images/logo dong thinh png.png" alt="Cửa hàng mẫu 2">
+        <div class="vip-date-tag">📅 T5/2026</div>
       </div>
-      <div class="video-info">
-        <div class="video-info-title">3 lý do chủ shop nên dùng Sapo thay vì Excel</div>
-        <div class="video-meta">38.7K lượt xem · 1 tháng trước</div>
+      <div class="vip-body">
+        <div class="vip-name">Vải Đông Thịnnh</div>
+        <div class="vip-meta-list">
+          <div class="vip-meta-item">🔹 Ngành nghề: <strong>Vải, Thời Trang</strong></div>
+          <div class="vip-meta-item">🚀 Gói triển khai: <strong>Sapo Web</strong></div>
+        </div>
+        <div class="vip-quote">
+          "Ấn tượng nhất là sự hỗ trợ nhiệt tình của Nghĩa, nửa đêm lỗi hóa đơn gọi vẫn bắt máy giải quyết ngay cho tiệm."
+        </div>
+        <a href="https://dongthinhtextile.com.vn/" target="_blank" rel="noopener" class="vip-btn">Ghé thăm cửa hàng ↗</a>
       </div>
     </div>
-    <div class="video-card">
-      <div class="video-thumb" style="background: linear-gradient(135deg,#1877F2,#0a3d91);">
-        <div class="video-platform-badge">Facebook</div>
-        <div class="play-btn">
-          <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        </div>
+
+    <!-- Khách hàng 3 -->
+    <div class="vip-card">
+      <div class="vip-img-box">
+        <img src="images/giaankids.jpg" alt="Cửa hàng mẫu 3">
+        <div class="vip-date-tag">📅 T5/2026</div>
       </div>
-      <div class="video-info">
-        <div class="video-info-title">Review Sapo sau 6 tháng sử dụng – Có đáng tiền?</div>
-        <div class="video-meta">9.2K lượt xem · 2 tháng trước</div>
+      <div class="vip-body">
+        <div class="vip-name">Gia Ân Kids</div>
+        <div class="vip-meta-list">
+          <div class="vip-meta-item">🔹 Ngành nghề: <strong>Thời Trang Trẻ Em</strong></div>
+          <div class="vip-meta-item">🚀 Gói triển khai: <strong>Sapo Retail</strong></div>
+        </div>
+        <div class="vip-quote">
+          "Hệ thống order tại bàn chạy mượt, giảm hẳn thời gian chờ của khách và quản lý nguyên vật liệu chính xác."
+        </div>
+        <a href="https://www.facebook.com/giaankid/?locale=vi_VN" target="_blank" rel="noopener" class="vip-btn">Ghé thăm cửa hàng ↗</a>
       </div>
     </div>
   </div>
 </section>
-
 <div class="divider"></div>
 
 <!-- CONTACT SECTION -->
-<section id="contact">
+<section id="contact" style="margin-top: 50px;">
   <div class="section-tag">Liên hệ</div>
   <h2 class="section-title">Sẵn sàng hỗ trợ<br><span style="color:var(--accent-light)">ngay hôm nay</span></h2>
   <p class="section-sub">Để được tư vấn giải pháp phù hợp nhất cho cửa hàng của bạn, hãy liên hệ trực tiếp với tôi.</p>
@@ -754,29 +339,74 @@
           <div class="contact-value" style="font-size:0.88rem;">70 Lữ Gia, Phú Thọ, TP. Hồ Chí Minh</div>
         </div>
       </div>
+      <a href="https://www.sapo.vn/?kd=nghialh" target="_blank" class="trial-btn">
+        🚀 Đăng ký dùng thử miễn phí ngay
+      </a>
     </div>
 
     <div class="contact-form">
-      <div class="form-title">Để lại thông tin</div>
-      <div class="form-sub">Tôi sẽ liên hệ lại trong vòng 30 phút trong giờ hành chính.</div>
-      <div class="form-group">
-        <label>Họ và tên của bạn</label>
-        <input type="text" placeholder="Nguyễn Văn A">
-      </div>
-      <div class="form-group">
-        <label>Số điện thoại</label>
-        <input type="tel" placeholder="0xxx xxx xxx">
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="email@example.com">
-      </div>
-      <div class="form-group">
-        <label>Bạn đang kinh doanh ngành hàng gì?</label>
-        <textarea placeholder="Ví dụ: cửa hàng thời trang, mỹ phẩm, tạp hóa, chuỗi cà phê..."></textarea>
-      </div>
-      <button class="form-btn" onclick="alert('Cảm ơn bạn! Tôi sẽ liên hệ lại sớm nhất.')">Gửi thông tin tư vấn →</button>
-    </div>
+
+  <div class="form-title">Để lại thông tin</div>
+
+  <div class="form-sub">
+    Tôi sẽ liên hệ lại trong vòng 30 phút trong giờ hành chính.
+  </div>
+
+  <!-- Họ tên -->
+  <div class="form-group">
+    <label>Họ và tên của bạn *</label>
+
+    <input
+      id="name"
+      type="text"
+      placeholder="Nguyễn Văn A"
+      required
+    >
+  </div>
+
+  <!-- Số điện thoại -->
+  <div class="form-group">
+    <label>Số điện thoại *</label>
+
+    <input
+      id="phone"
+      type="tel"
+      placeholder="0123456789"
+      maxlength="10"
+      inputmode="numeric"
+      required
+      oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+    >
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <label>Email *</label>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="example@gmail.com"
+      required
+    >
+  </div>
+
+  <!-- Ngành hàng -->
+  <div class="form-group">
+    <label>Bạn đang kinh doanh ngành hàng gì? *</label>
+
+    <textarea
+      id="business"
+      placeholder="Ví dụ: Shop thời trang, mỹ phẩm, quán cafe..."
+      required
+    ></textarea>
+  </div>
+
+  <button class="form-btn" onclick="submitForm()">
+    Gửi thông tin tư vấn →
+  </button>
+
+</div>
   </div>
 </section>
 
@@ -786,6 +416,99 @@
   <div class="footer-copy">© 2025 · Nhân Viên Kinh Doanh</div>
   <div class="footer-sapo">Đối tác chính thức của <a href="https://www.sapo.vn" target="_blank" rel="noopener">Sapo.vn</a></div>
 </footer>
+<script src="js/youtube.js"></script>
+<script>
 
+async function submitForm() {
+
+  // Lấy dữ liệu
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const business = document.getElementById("business").value.trim();
+
+  // Validate họ tên
+  if (name === "") {
+    alert("Vui lòng nhập họ và tên");
+    return;
+  }
+
+  // Validate số điện thoại Việt Nam
+  const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/;
+
+  if (!phoneRegex.test(phone)) {
+    alert("Số điện thoại không hợp lệ");
+    return;
+  }
+
+  // Validate email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    alert("Email không hợp lệ");
+    return;
+  }
+
+  // Validate ngành hàng
+  if (business === "") {  
+    alert("Vui lòng nhập ngành hàng kinh doanh");
+    return;
+  }
+
+  // Dữ liệu gửi đi
+  const data = {
+    name,
+    phone,
+    email,
+    business
+  };
+
+  try {
+
+    // Loading button
+    const btn = document.querySelector(".form-btn");
+
+    btn.disabled = true;
+    btn.innerText = "Đang gửi...";
+
+    // Gửi dữ liệu
+    await fetch("https://script.google.com/macros/s/AKfycbwXuMgWeCPTRwlWzoD-KxK4Dz-VFRoBwPrRj2llBcCtkDp0rYOZJDFOPPlhouoGRIRv/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    // Thành công
+    alert("Gửi thông tin thành công!");
+
+    // Reset form
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("business").value = "";
+
+    btn.disabled = false;
+    btn.innerText = "Gửi thông tin tư vấn →";
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Có lỗi xảy ra, vui lòng thử lại!");
+
+    const btn = document.querySelector(".form-btn");
+
+    btn.disabled = false;
+    btn.innerText = "Gửi thông tin tư vấn →";
+  }
+
+}
+
+</script>
 </body>
+
 </html>
+
