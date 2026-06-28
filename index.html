@@ -12,14 +12,24 @@
 
 <!-- NAV -->
 <nav>
+
   <div class="nav-logo">Lê Hiếu Nghĩa</div>
-  <div class="nav-links">
+
+  <!-- BUTTON MOBILE -->
+  <div class="menu-btn" onclick="toggleMenu()">
+    ☰
+  </div>
+
+  <!-- QUAN TRỌNG: id="navLinks" -->
+  <div class="nav-links" id="navLinks">
+
     <a href="#sapo">Về Sapo</a>
     <a href="#social">Kênh của tôi</a>
-    <a href="#vip">Khách hàng</a>
+    <a href="#vip">Khách hàng</a>
     <a href="#contact">Liên hệ</a>
-    
+
   </div>
+
 </nav>
 
 <!-- HERO -->
@@ -183,7 +193,7 @@
 <div class="divider"></div>
 
 <!-- SOCIAL MEDIA SECTION -->
-<section id="social">
+<section id="social" style="margin-top: 20px;">
   <div class="section-tag">Kênh của tôi</div>
   <h2 class="section-title">Theo dõi tôi trên<br>mạng xã hội</h2>
   <p class="section-sub">Tôi thường xuyên chia sẻ kiến thức kinh doanh, tips bán hàng đa kênh và cập nhật mới nhất từ Sapo trên các kênh dưới đây.</p>
@@ -290,7 +300,7 @@
 <div class="divider"></div>
 
 <!-- CONTACT SECTION -->
-<section id="contact" style="margin-top: 50px;">
+<section id="contact">
   <div class="section-tag">Liên hệ</div>
   <h2 class="section-title">Sẵn sàng hỗ trợ<br><span style="color:var(--accent-light)">ngay hôm nay</span></h2>
   <p class="section-sub">Để được tư vấn giải pháp phù hợp nhất cho cửa hàng của bạn, hãy liên hệ trực tiếp với tôi.</p>
@@ -506,6 +516,32 @@ async function submitForm() {
   }
 
 }
+
+</script>
+<script>
+
+function toggleMenu(){
+
+  document
+    .getElementById("navLinks")
+    .classList
+    .toggle("active");
+
+}
+
+document.querySelectorAll(".nav-links a")
+.forEach(link => {
+
+  link.addEventListener("click", () => {
+
+    document
+      .getElementById("navLinks")
+      .classList
+      .remove("active");
+
+  });
+
+});
 
 </script>
 </body>
