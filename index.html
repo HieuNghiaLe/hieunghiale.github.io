@@ -3,11 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lê Hiếu Nghĩa – Nhân Viên Kinh Doanh Sapo</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<title>Lê Hiếu Nghĩa - Tư vấn phần mềm Sapo</title>
+
+<meta name="description"
+content="Chuyên tư vấn giải pháp phần mềm bán hàng Sapo, POS, FnB, quản lý kho, bán hàng đa kênh cho cửa hàng, hộ kinh doanh và doanh nghiệp.">
+
+<meta name="keywords"
+content="Sapo, phần mềm bán hàng, POS, FnB, quản lý kho, bán hàng đa kênh, hóa đơn điện tử, kê khai thuế">
+
+<meta name="author"
+content="Lê Hiếu Nghĩa">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"></head>
+<link rel="stylesheet" href="style.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-64FNW8SVJ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-64FNW8SVJ5');
+</script>
+</head>
 <body>
 
 <!-- NAV -->
@@ -311,7 +332,7 @@
         <div class="contact-ico">👤</div>
         <div>
           <div class="contact-label">Họ và tên</div>
-          <div class="contact-value">Lê Hiếu Nghĩa</div>
+          <div id="heroTitle" class="contact-value"></div>
         </div>
       </div>
       <div class="contact-item">
@@ -565,6 +586,26 @@ window.addEventListener("load", () => {
     }
 
   }
+
+});
+
+</script>
+<script>
+
+const API_URL = "https://script.google.com/macros/s/AKfycbwSZndAKwLt7Q7saIXSbeR63Cx1kPwtMnHAJp-j-is_jNjD7Uam5MELPBMolxdiLYoo/exec";
+
+fetch(API_URL)
+.then(res => res.json())
+.then(data => {
+
+  document.getElementById("heroTitle").innerText =
+    data.hero_title;
+
+  document.getElementById("heroDesc").innerText =
+    data.hero_desc;
+
+  document.getElementById("phone").innerText =
+    data.phone;
 
 });
 
